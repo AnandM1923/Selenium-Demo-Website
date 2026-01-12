@@ -1,100 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Minimalist</title>
-    <meta name="description" content="A minimal, responsive website built with semantic HTML and modern CSS.">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Selenium Practice Arena</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-
-    <header class="site-header">
-        <div class="container">
-            <a href="#" class="logo">Minima.</a>
-            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <nav class="site-nav">
-                <ul class="nav-list">
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="index.html" class="nav-logo">
+                <span>⚡</span> Selenium Arena
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="pages/forms.html" class="nav-link">Forms</a>
+                <a href="pages/interactions.html" class="nav-link">Interactions</a>
+                <a href="pages/alerts.html" class="nav-link">Alerts</a>
+                <a href="pages/tables.html" class="nav-link">Tables</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <main>
-        <section id="hero" class="hero-section">
-            <div class="container">
-                <div class="hero-content">
-                    <h1>Elevate Your Digital Presence</h1>
-                    <p>A fast, responsive, and accessible foundation for your next project. Built with pure HTML and CSS.</p>
-                    <div class="hero-actions">
-                        <a href="#features" class="btn btn-primary">Get Started</a>
-                        <a href="#about" class="btn btn-secondary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main class="container">
+        <div style="padding: 5rem 0; text-align: center;">
+            <h1>Master Interaction Automation</h1>
+            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto;">
+                A premium playground designed to test your Selenium, Playwright, and Cypress skills.
+                Everything from simple buttons to complex shadow DOMs.
+            </p>
+        </div>
 
-        <section id="features" class="features-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Core Features</h2>
-                    <p>Everything you need, nothing you don't.</p>
-                </div>
-                <div class="features-grid">
-                    <article class="feature-card">
-                        <div class="icon">⚡</div>
-                        <h3>Lightning Fast</h3>
-                        <p>Optimized for speed with zero bloat. Pure vanilla performance.</p>
-                    </article>
-                    <article class="feature-card">
-                        <div class="icon">📱</div>
-                        <h3>Fully Responsive</h3>
-                        <p>Looks perfect on all devices, from mobile phones to 4K desktops.</p>
-                    </article>
-                    <article class="feature-card">
-                        <div class="icon">🎨</div>
-                        <h3>Modern Design</h3>
-                        <p>Clean aesthetics with glassmorphism and subtle interactions.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
+        <h2 style="margin-bottom: 2rem;">Challenge Zones</h2>
 
-        <section id="about" class="about-section">
-            <div class="container">
-                <div class="about-content">
-                    <h2>About The Project</h2>
-                    <p>This template serves as a starting point for modern web development teaching. It emphasizes semantic structure, accessibility standards, and maintainable CSS architecture without relying on heavy frameworks.</p>
+        <div class="card-grid">
+            <a href="pages/forms.html" class="card" id="card-forms">
+                <div class="card-icon">📝</div>
+                <div class="card-title">Form Validation</div>
+                <div class="card-description">
+                    Master input handling. Text fields, checkboxes, radios, drop-downs, and file uploads with complex
+                    validation rules.
                 </div>
-            </div>
-        </section>
+            </a>
+
+            <a href="pages/interactions.html" class="card" id="card-interactions">
+                <div class="card-icon">🖱️</div>
+                <div class="card-title">Interactions</div>
+                <div class="card-description">
+                    Beyond clicking. Drag & drop, hover states, double clicks, right clicks, and keyboard events.
+                </div>
+            </a>
+
+            <a href="pages/alerts.html" class="card" id="card-alerts">
+                <div class="card-icon">⚠️</div>
+                <div class="card-title">Alerts & Modals</div>
+                <div class="card-description">
+                    Handle browser-based popups, alerts, confirms, prompts, and modern HTML/CSS modal overlays.
+                </div>
+            </a>
+
+            <a href="pages/tables.html" class="card" id="card-tables">
+                <div class="card-icon">📊</div>
+                <div class="card-title">Data Tables</div>
+                <div class="card-description">
+                    Scrape and verify data from complex tables. Includes sorting, filtering, and pagination challenges.
+                </div>
+            </a>
+
+            <a href="pages/sync.html" class="card" id="card-sync">
+                <div class="card-icon">⏳</div>
+                <div class="card-title">Synchronization</div>
+                <div class="card-description">
+                    The ultimate test of stability. Handle dynamic content, loading states, and random delays.
+                </div>
+            </a>
+
+            <a href="pages/frames.html" class="card" id="card-frames">
+                <div class="card-icon">🖼️</div>
+                <div class="card-title">Frames & Windows</div>
+                <div class="card-description">
+                    Switch contexts like a pro. Nested iFrames, new tabs, and pop-up windows.
+                </div>
+            </a>
+
+            <a href="pages/shadow.html" class="card" id="card-shadow">
+                <div class="card-icon">👻</div>
+                <div class="card-title">Shadow DOM</div>
+                <div class="card-description">
+                    Pierce the veil. Access elements inside open and nested shadow roots.
+                </div>
+            </a>
+        </div>
     </main>
 
-    <footer id="contact" class="site-footer">
+    <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <span class="logo">Minima.</span>
-                    <p>&copy; 2024 Minima Inc. All rights reserved.</p>
-                </div>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">GitHub</a>
-                </div>
-            </div>
+            <p>Built for automated testing practice. No copyrights attached.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>

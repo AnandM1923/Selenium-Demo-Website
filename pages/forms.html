@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms - Selenium Arena</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="../index.html" class="nav-logo">
+                <span>⚡</span> Selenium Arena
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="forms.html" class="nav-link active">Forms</a>
+                <a href="interactions.html" class="nav-link">Interactions</a>
+                <a href="alerts.html" class="nav-link">Alerts</a>
+                <a href="tables.html" class="nav-link">Tables</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container practice-area">
+        <h1>Form Authentication & Inputs</h1>
+        <p>Practice interacting with various types of form elements.</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+            <!-- Basic Form -->
+            <div class="card" style="cursor: default;">
+                <h2>Login Form</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" id="username" class="form-control" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter password">
+                    </div>
+                    <button type="submit" id="login-submit" class="btn">Login</button>
+                    <p id="login-message" style="margin-top: 1rem; font-size: 0.9rem;"></p>
+                </form>
+            </div>
+
+            <!-- Checkboxes & Radios -->
+            <div class="card" style="cursor: default;">
+                <h2>Checkboxes & Radios</h2>
+
+                <div class="form-group">
+                    <label class="form-label">Select Skills (Checkbox)</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="skill-selenium" name="skills" value="selenium"> Selenium
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="skill-playwright" name="skills" value="playwright"> Playwright
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="skill-cypress" name="skills" value="cypress"> Cypress
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Experience Level (Radio)</label>
+                    <div style="display: flex; gap: 1rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" id="exp-novice" name="experience" value="novice"> Novice
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="radio" id="exp-expert" name="experience" value="expert"> Expert
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Selects & Dates -->
+            <div class="card" style="cursor: default;">
+                <h2>Dropdowns & Dates</h2>
+
+                <div class="form-group">
+                    <label for="country" class="form-label">Country (Select)</label>
+                    <select id="country" class="form-control">
+                        <option value="us">United States</option>
+                        <option value="uk">United Kingdom</option>
+                        <option value="in">India</option>
+                        <option value="ca">Canada</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="dob" class="form-label">Date of Birth</label>
+                    <input type="date" id="dob" class="form-control">
+                </div>
+            </div>
+
+            <!-- File Upload -->
+            <div class="card" style="cursor: default;">
+                <h2>File Upload</h2>
+                <div class="form-group">
+                    <label for="file-upload" class="form-label">Upload Resume</label>
+                    <input type="file" id="file-upload" class="form-control">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+            const msg = document.getElementById('login-message');
+
+            if (user && pass) {
+                msg.style.color = 'var(--success)';
+                msg.textContent = 'Login Successful!';
+            } else {
+                msg.style.color = 'var(--error)';
+                msg.textContent = 'Please enter both username and password.';
+            }
+        });
+    </script>
+</body>
+
+</html>

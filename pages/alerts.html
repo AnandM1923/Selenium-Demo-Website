@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts & Windows - Selenium Arena</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 500px;
+            width: 90%;
+            border: 1px solid var(--accent-primary);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+
+        .modal.open {
+            transform: scale(1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="../index.html" class="nav-logo">
+                <span>⚡</span> Selenium Arena
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="forms.html" class="nav-link">Forms</a>
+                <a href="interactions.html" class="nav-link">Interactions</a>
+                <a href="alerts.html" class="nav-link active">Alerts</a>
+                <a href="tables.html" class="nav-link">Tables</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container practice-area">
+        <h1>Alerts, Windows & Modals</h1>
+
+        <div class="card-grid">
+            <!-- Browser Alerts -->
+            <div class="card" style="cursor: default;">
+                <h2>Browser Alerts</h2>
+                <div style="display: grid; gap: 1rem;">
+                    <button onclick="showAlert()" class="btn">Trigger Alert</button>
+                    <button onclick="showConfirm()" class="btn btn-secondary">Trigger Confirm</button>
+                    <button onclick="showPrompt()" class="btn btn-secondary">Trigger Prompt</button>
+                    <p id="alert-result" style="font-size: 0.9rem; color: var(--text-secondary); min-height: 1.5rem;">
+                    </p>
+                </div>
+            </div>
+
+            <!-- Windows & Tabs -->
+            <div class="card" style="cursor: default;">
+                <h2>Windows & Tabs</h2>
+                <div style="display: grid; gap: 1rem;">
+                    <button id="new-tab-btn" class="btn">Open New Tab</button>
+                    <button id="new-window-btn" class="btn btn-secondary">Open New Window</button>
+                </div>
+            </div>
+
+            <!-- HTML Modals -->
+            <div class="card" style="cursor: default;">
+                <h2>HTML Modals</h2>
+                <button id="modal-btn" class="btn">Launch Modal</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Markup -->
+    <div id="my-modal" class="modal-overlay">
+        <div class="modal">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Modern Modal</h2>
+            <p>This is a standard HTML/CSS modal. It is not a browser alert.</p>
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                <button id="close-modal" class="btn btn-secondary">Close</button>
+                <button onclick="alert('Modal Action!')" class="btn">Action</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const result = document.getElementById('alert-result');
+
+        function showAlert() {
+            alert('This is a simple alert!');
+            result.textContent = 'Alert handled';
+            result.style.color = 'var(--success)';
+        }
+
+        function showConfirm() {
+            const val = confirm('Press OK or Cancel');
+            result.textContent = val ? 'Confirmed (OK)' : 'Rejected (Cancel)';
+            result.style.color = val ? 'var(--success)' : 'var(--warning)';
+        }
+
+        function showPrompt() {
+            const val = prompt('Enter your name:');
+            if (val) {
+                result.textContent = `Hello, ${val}!`;
+                result.style.color = 'var(--success)';
+            } else {
+                result.textContent = 'Prompt cancelled or empty';
+                result.style.color = 'var(--text-secondary)';
+            }
+        }
+
+        document.getElementById('new-tab-btn').addEventListener('click', () => {
+            window.open('../index.html', '_blank');
+        });
+
+        document.getElementById('new-window-btn').addEventListener('click', () => {
+            window.open('../index.html', 'newwindow', 'width=800,height=600');
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('my-modal');
+        const modalBtn = document.getElementById('modal-btn');
+        const closeBtn = document.getElementById('close-modal');
+
+        modalBtn.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.querySelector('.modal').classList.add('open');
+            }, 10);
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modal.querySelector('.modal').classList.remove('open');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeBtn.click();
+            }
+        });
+    </script>
+</body>
+
+</html>

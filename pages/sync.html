@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synchronization - Selenium Arena</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .loader {
+            border: 4px solid var(--border-color);
+            border-top: 4px solid var(--accent-primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="../index.html" class="nav-logo">
+                <span>⚡</span> Selenium Arena
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="forms.html" class="nav-link">Forms</a>
+                <a href="interactions.html" class="nav-link">Interactions</a>
+                <a href="alerts.html" class="nav-link">Alerts</a>
+                <a href="tables.html" class="nav-link">Tables</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container practice-area">
+        <h1>Synchronization & Waits</h1>
+        <p>Practice handling dynamic content, loading states, and explicit waits.</p>
+
+        <div class="card-grid">
+            <!-- Delayed Element -->
+            <div class="card" style="cursor: default;">
+                <h2>Delayed Element</h2>
+                <p>Click the button and wait for the element to appear (5 seconds).</p>
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <button id="start-delay-btn" class="btn">Start Timer</button>
+                    <div id="loader-1" class="loader"></div>
+                </div>
+                <div id="delayed-container" style="margin-top: 1rem; min-height: 2rem;"></div>
+            </div>
+
+            <!-- Enabled after delay -->
+            <div class="card" style="cursor: default;">
+                <h2>Enable Button</h2>
+                <p>This button will be enabled after 3 seconds.</p>
+                <div style="display: flex; gap: 1rem; align-items: center;">
+                    <button id="enable-trigger-btn" class="btn btn-secondary">Start Trigger</button>
+                    <button id="disabled-btn" class="btn" disabled style="opacity: 0.5; cursor: not-allowed;">Target
+                        Button</button>
+                </div>
+                <p id="enable-status" style="margin-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);"></p>
+            </div>
+
+            <!-- Dynamic Text -->
+            <div class="card" style="cursor: default;">
+                <h2>Content Change</h2>
+                <p>Text will change periodically.</p>
+                <div style="padding: 1rem; background: var(--bg-secondary); border-radius: 0.5rem;">
+                    <h3 id="dynamic-text">Original State</h3>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Delayed Element
+        document.getElementById('start-delay-btn').addEventListener('click', () => {
+            const container = document.getElementById('delayed-container');
+            const loader = document.getElementById('loader-1');
+
+            container.innerHTML = ''; // reset
+            loader.style.display = 'block';
+
+            setTimeout(() => {
+                loader.style.display = 'none';
+                const p = document.createElement('p');
+                p.textContent = 'Use Explicit Wait to see me!';
+                p.style.color = 'var(--success)';
+                p.id = 'revealed-content';
+                container.appendChild(p);
+            }, 5000);
+        });
+
+        // Enable Button
+        document.getElementById('enable-trigger-btn').addEventListener('click', () => {
+            const btn = document.getElementById('disabled-btn');
+            const status = document.getElementById('enable-status');
+
+            status.textContent = "Waiting for 3 seconds...";
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                btn.style.cursor = 'pointer';
+                status.textContent = "Button is now enabled!";
+                status.style.color = "var(--success)";
+            }, 3000);
+        });
+
+        // Dynamic Text
+        function changeText() {
+            const el = document.getElementById('dynamic-text');
+            const states = ['Original State', 'Loading...', 'Processing...', 'Complete!'];
+            let i = 0;
+            setInterval(() => {
+                i = (i + 1) % states.length;
+                el.innerText = states[i];
+            }, 2000);
+        }
+        changeText();
+    </script>
+</body>
+
+</html>

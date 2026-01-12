@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tables - Selenium Arena</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: rgba(15, 23, 42, 0.5);
+            font-weight: 600;
+            color: var(--accent-primary);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="../index.html" class="nav-logo">
+                <span>⚡</span> Selenium Arena
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="forms.html" class="nav-link">Forms</a>
+                <a href="interactions.html" class="nav-link">Interactions</a>
+                <a href="alerts.html" class="nav-link">Alerts</a>
+                <a href="tables.html" class="nav-link active">Tables</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container practice-area">
+        <h1>Data Tables</h1>
+
+        <div class="card" style="cursor: default; margin-bottom: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2>Employee Directory</h2>
+                <input type="text" id="table-search" placeholder="Search..." class="form-control" style="width: 200px;">
+            </div>
+
+            <div class="table-container">
+                <table id="employee-table">
+                    <thead>
+                        <tr>
+                            <th style="cursor: pointer;" onclick="sortTable(0)">ID ↕</th>
+                            <th style="cursor: pointer;" onclick="sortTable(1)">Name ↕</th>
+                            <th style="cursor: pointer;" onclick="sortTable(2)">Position ↕</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>101</td>
+                            <td>Alice Whitman</td>
+                            <td>Frontend Dev</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td><button class="btn btn-secondary"
+                                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>Bob Smith</td>
+                            <td>Backend Dev</td>
+                            <td><span class="status-badge status-inactive">Inactive</span></td>
+                            <td><button class="btn btn-secondary"
+                                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>Charlie Day</td>
+                            <td>DevOps</td>
+                            <td><span class="status-badge status-pending">Pending</span></td>
+                            <td><button class="btn btn-secondary"
+                                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>104</td>
+                            <td>Diana Prince</td>
+                            <td>Product Owner</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td><button class="btn btn-secondary"
+                                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>105</td>
+                            <td>Ethan Hunt</td>
+                            <td>QA Engineer</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td><button class="btn btn-secondary"
+                                    style="padding: 0.25rem 0.5rem; font-size: 0.8rem;">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="table-footer" style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+                Showing 5 records
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Simple search functionality
+        document.getElementById('table-search').addEventListener('keyup', function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll('#employee-table tbody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+
+        // Simple sort functionality
+        function sortTable(n) {
+            const table = document.getElementById("employee-table");
+            let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            switching = true;
+            dir = "asc";
+
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+
+                for (i = 1; i < (rows.length - 1); i++) {
+                    shouldSwitch = false;
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (shouldSwitch) {
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    switchcount++;
+                } else {
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

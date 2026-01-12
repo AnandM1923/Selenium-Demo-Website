@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow DOM - Selenium Arena</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .shadow-host {
+            border: 1px dashed var(--accent-primary);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="../index.html" class="nav-logo">
+                <span>⚡</span> Selenium Arena
+            </a>
+            <div class="nav-links">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="forms.html" class="nav-link">Forms</a>
+                <a href="interactions.html" class="nav-link">Interactions</a>
+                <a href="alerts.html" class="nav-link">Alerts</a>
+                <a href="tables.html" class="nav-link">Tables</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container practice-area">
+        <h1>Shadow DOM</h1>
+        <p>Practice accessing elements encapsulated within Shadow Roots.</p>
+
+        <div class="card-grid">
+            <!-- Simple Shadow DOM -->
+            <div class="card" style="cursor: default;">
+                <h2>Simple Shadow Root</h2>
+                <div id="shadow-host-1" class="shadow-host"></div>
+            </div>
+
+            <!-- Nested Shadow DOM -->
+            <div class="card" style="cursor: default;">
+                <h2>Nested Shadow Roots</h2>
+                <div id="shadow-host-2" class="shadow-host"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script>
+        // Simple Shadow DOM
+        const host1 = document.getElementById('shadow-host-1');
+        const root1 = host1.attachShadow({ mode: 'open' });
+
+        const div1 = document.createElement('div');
+        div1.innerHTML = `
+            <style>
+                input { 
+                    padding: 0.5rem; 
+                    border: 1px solid #ccc; 
+                    border-radius: 4px;
+                    background: #333;
+                    color: white;
+                }
+                button {
+                    padding: 0.5rem 1rem;
+                    background: #10b981;
+                    border: none;
+                    color: white;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    margin-left: 0.5rem;
+                }
+            </style>
+            <input type="text" id="shadow-input" placeholder="Inside Shadow DOM">
+            <button id="shadow-btn">Save</button>
+            <span id="shadow-msg" style="margin-left: 10px; font-size: 0.9rem;"></span>
+        `;
+        root1.appendChild(div1);
+
+        root1.getElementById('shadow-btn').addEventListener('click', () => {
+            const val = root1.getElementById('shadow-input').value;
+            const msg = root1.getElementById('shadow-msg');
+            msg.textContent = val ? "Saved: " + val : "Please enter text";
+            msg.style.color = val ? "#10b981" : "#ef4444";
+        });
+
+
+        // Nested Shadow DOM
+        const host2 = document.getElementById('shadow-host-2');
+        const root2 = host2.attachShadow({ mode: 'open' });
+
+        const div2 = document.createElement('div');
+        div2.innerHTML = `
+            <style>
+                .outer-box { border: 1px solid #555; padding: 10px; color: #aaa; }
+            </style>
+            <div class="outer-box">
+                <p>I am in the Outer Shadow Root</p>
+                <div id="inner-shadow-host"></div>
+            </div>
+        `;
+        root2.appendChild(div2);
+
+        const innerHost = root2.getElementById('inner-shadow-host');
+        const innerRoot = innerHost.attachShadow({ mode: 'open' });
+
+        innerRoot.innerHTML = `
+            <style>
+                .inner-box { background: rgba(59, 130, 246, 0.1); padding: 10px; color: white; }
+            </style>
+            <div class="inner-box">
+                <p>I am deep in the Nested Shadow Root</p>
+                <input type="checkbox" id="nested-check"> <label for="nested-check">Check me</label>
+            </div>
+        `;
+
+    </script>
+</body>
+
+</html>
